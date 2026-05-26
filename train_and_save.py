@@ -35,10 +35,10 @@ print("Training complete")
 # ---- Section 5: Upload to S3 ----
 s3 = boto3.client(
     's3',
-    endpoint_url=endpoint,
+    region_name=region or 'us-east-1',
     aws_access_key_id=key_id,
     aws_secret_access_key=secret_key,
-    region_name=region,
+    endpoint_url=endpoint,
     config=Config(signature_version='s3v4'),
     verify=False
 )
