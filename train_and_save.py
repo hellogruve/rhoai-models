@@ -39,6 +39,17 @@ print(f"Training complete. Accuracy: {accuracy:.2%}")
 # ---- saving m1 model ----
 # ADD CODE HERE
 
+
+# --- converting to onnx --- 
+
+loaded_model = joblib.load("abcd.joblib")
+initial_type = [('float_input', FloatTensorType([None, 4]))]
+onnx_model = convert_sklearn(loaded_model, initial_types=initial_type)
+with open('abcd.onnx', 'wb') as f:
+    f.write(onnx_model.SerializeToString())
+print("Converted to real ONNX ✅")
+
+
 # ---- Section 5: Upload to S3 ----
 s3 = boto3.client(
     's3',
